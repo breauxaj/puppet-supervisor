@@ -6,7 +6,7 @@ class supervisor (
   }
 
   $depends = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'pip' ],
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'python-pip' ],
   }
 
   $config = $::operatingsystem ? {
