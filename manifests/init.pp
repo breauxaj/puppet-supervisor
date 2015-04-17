@@ -5,13 +5,18 @@ class supervisor (
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
 
+  $depends = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'pip' ],
+  }
+
   $config = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
   }
 
   package { $required:
-    ensure => $ensure,
+    ensure   => $ensure,
     provider => 'pip'
+    require  => Package[$depends],
   }
 
   file { '/etc/supervisor.d':
