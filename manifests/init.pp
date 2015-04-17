@@ -9,7 +9,10 @@ class supervisor (
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
   }
 
-  package { $required: ensure => $ensure }
+  package { $required:
+    ensure => $ensure,
+    provider => 'pip'
+  }
 
   file { '/etc/supervisor.d':
     ensure => directory,
