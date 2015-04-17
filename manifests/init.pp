@@ -13,10 +13,14 @@ class supervisor (
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
   }
 
+  package { $depends:
+    ensure => latest,
+    before => Package[$required],
+  }
+
   package { $required:
     ensure   => $ensure,
     provider => 'pip'
-    require  => Package[$depends],
   }
 
   file { '/etc/supervisor.d':
