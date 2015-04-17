@@ -1,0 +1,8 @@
+[program:my-api]
+command=node /home/myuser/myapi/app.js  
+autostart=true  
+autorestart=true  
+environment=NODE_ENV=production  
+stderr_logfile=/var/log/myapi.err.log  
+stdout_logfile=/var/log/myapi.out.log  
+user=myuser
