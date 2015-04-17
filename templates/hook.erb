@@ -1,8 +1,10 @@
-[program:my-api]
-command=node /home/myuser/myapi/app.js  
-autostart=true  
-autorestart=true  
-environment=NODE_ENV=production  
-stderr_logfile=/var/log/myapi.err.log  
-stdout_logfile=/var/log/myapi.out.log  
-user=myuser
+<% if hook and ! hook.empty? -%>
+[program:<%= hook %>]
+command=<%= command %>
+autostart=<%= autostart %>
+autorestart=<%= autorestart %>
+environment=<%= environment %>
+stderr_logfile=<%= stderr_logfile %>
+stdout_logfile=<%= stdout_logfile %>
+user=<%= user %>
+<% end -%>
