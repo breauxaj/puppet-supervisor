@@ -2,18 +2,18 @@ define supervisor::service (
   $ensure,
   $enable
 ) {
-  $service = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => 'supervisord',
+  $required = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
 
-  $depends = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
+  $service = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => 'supervisord',
   }
 
   service { $service:
     ensure  => $ensure,
     enable  => $enable,
-    require => Package[$depends],
+    require => Package[$required],
   }
 
 }
