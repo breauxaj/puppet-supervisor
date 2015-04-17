@@ -21,13 +21,6 @@ define supervisor::hook (
 
   $hook = $title
 
-  file { "${config}":
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
   file { "${config}/${hook}.conf":
     ensure  => present,
     owner   => 'root',
