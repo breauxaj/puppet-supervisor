@@ -16,11 +16,18 @@ define supervisor::hook (
   }
 
   $config = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisor/conf.d' ],
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisor.d' ],
   }
 
   $hook = $title
-  
+
+  file { "${config}":
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
   file { "${config}/${hook}.conf":
     ensure  => present,
     owner   => 'root',
