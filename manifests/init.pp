@@ -6,7 +6,7 @@ class supervisor (
   }
 
   $context = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/files/etc/supervisord.conf ],
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/files/etc/supervisord.conf' ],
   }
 
   $include = $::operatingsystem ? {
