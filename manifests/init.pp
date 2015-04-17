@@ -20,6 +20,7 @@ class supervisor (
     onlyif  => "get files != '${include}'",
     changes => "set files '${include}'",
     require => Package[$required],
+    lens    => 'IniFile.lns',
   }
 
 }
