@@ -13,8 +13,10 @@ define supervisor::service (
   service { $service:
     ensure  => $ensure,
     enable  => $enable,
-    require => File['/etc/init.d/supervisord'],
-    require => Package[$required],
+    require => [
+      File['/etc/init.d/supervisord'],
+      Package[$required]
+    ]
   }
 
   file { '/etc/init.d/supervisord':
