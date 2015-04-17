@@ -6,7 +6,11 @@ class supervisor (
   }
 
   $context = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/files/etc/supervisord.conf' ],
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/files/etc/supervisord.conf/include' ],
+  }
+
+  $config = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
   }
 
   $include = $::operatingsystem ? {
@@ -16,11 +20,11 @@ class supervisor (
   package { $required: ensure => $ensure }
 
   augeas { "supervisord_include":
-    context => "${context}/include",
+    context => "${context}",
     onlyif  => "get files != '${include}'",
     changes => "set files '${include}'",
     require => Package[$required],
-    incl    => "${context}",
+    incl    => "${config}",
     lens    => 'IniFile.lns',
   }
 
