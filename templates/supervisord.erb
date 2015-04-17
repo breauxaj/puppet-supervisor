@@ -27,3 +27,6 @@ serverurl=unix:///var/tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 ;username=chris              ; should be same as http_username if set
 ;password=123                ; should be same as http_password if set
 ;prompt=mysupervisor         ; cmd line prompt (default "supervisor")
+
+[include]
+files=/etc/supervisor.d

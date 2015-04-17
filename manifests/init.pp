@@ -5,27 +5,26 @@ class supervisor (
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
 
-  $context = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/files/etc/supervisord.conf/include' ],
-  }
-
   $config = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
   }
 
-  $include = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisor.d' ],
-  }
-
   package { $required: ensure => $ensure }
 
-  augeas { "supervisord_include":
-    context => "${context}",
-    onlyif  => "get files != '${include}'",
-    changes => "set files '${include}'",
+  file { '/etc/supervisor.d':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755'
+  }
+
+  file { "${config}":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('supervisor/supervisord.erb'),
     require => Package[$required],
-    incl    => "${config}",
-    lens    => 'IniFile.lns',
   }
 
 }
