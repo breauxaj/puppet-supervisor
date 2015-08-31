@@ -1,19 +1,18 @@
 define supervisor::config (
-
+  $value
 ) {
   include ::supervisor
 
-  $service = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => 'supervisord',
+  $key = $title
+
+  $context = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => '/files/etc/supervisord.conf',
   }
 
-  file { '/etc/sysconfig/supervisor':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('supervisor/sysconfig.erb'),
-    notify  => Service[$service],
+  augeas { "supervisord_conf/${key}":
+    context => $context,
+    onlyif  => "get ${key} != '${value}'",
+    changes => "set ${key} '${value}'",
   }
 
 }
