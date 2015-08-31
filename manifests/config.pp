@@ -16,13 +16,4 @@ define supervisor::config (
     notify  => Service[$service],
   }
 
-  file { '/etc/profile.d/supervisor.sh':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('supervisor/profile.erb'),
-    notify  => Service[$service],
-  }
-
 }
