@@ -44,7 +44,6 @@ supervisor::service { 'default':
 }
 ```
 ```
-```
 supervisor::sysconfig {
   "SUPERVISORCTL": value => '/usr/bin/supervisorctl';
   "SUPERVISORD":   value => '/usr/bin/supervisord';
