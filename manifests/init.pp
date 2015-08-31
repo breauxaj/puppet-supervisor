@@ -31,11 +31,10 @@ class supervisor (
   }
 
   file { "${config}":
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('supervisor/supervisord.erb'),
     require => Package[$required],
   }
 

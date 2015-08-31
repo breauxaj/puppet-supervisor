@@ -2,6 +2,8 @@ define supervisor::service (
   $ensure,
   $enable
 ) {
+  include ::supervisor
+
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }

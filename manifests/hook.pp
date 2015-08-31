@@ -7,6 +7,8 @@ define supervisor::hook (
   $stdout_logfile,
   $user
 ) {
+  include ::supervisor
+
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
