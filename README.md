@@ -26,6 +26,34 @@ supervisor::config {
   "include/files":                value => '/etc/supervisor.d/*.conf';
 }
 ```
+```
+supervisor::hook { 'sample':
+  command        => '/usr/bin/node /var/nodes/sample/server.js',
+  autostart      => 'true',
+  autorestart    => 'true',
+  environment    => 'NODE_ENV=production', 
+  stderr_logfile => '/var/log/nodejs/sample.err.log',
+  stdout_logfile => '/var/log/nodejs/sample.out.log',
+  user           => 'deploy'
+}
+```
+```
+supervisor::service { 'default':
+  ensure => running,
+  enable => true
+}
+```
+```
+```
+supervisor::sysconfig {
+  "SUPERVISORCTL": value => '/usr/bin/supervisorctl';
+  "SUPERVISORD":   value => '/usr/bin/supervisord';
+  "PIDFILE":       value => '/var/run/supervisord.pid';
+  "LOCKFILE":      value => '/var/lock/subsys/supervisord';
+  "STOP_TIMEOUT":  value => 60;
+  "OPTIONS":       value => '-c /etc/supervisord.conf';
+}
+```
 
 License
 -------
