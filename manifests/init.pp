@@ -1,21 +1,14 @@
 class supervisor (
   $ensure = 'latest',
 ) {
+  include ::python
+
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
 
-  $depends = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'python-pip' ],
-  }
-
   $config = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ '/etc/supervisord.conf' ],
-  }
-
-  package { $depends:
-    ensure => latest,
-    before => Package[$required],
   }
 
   package { $required:
