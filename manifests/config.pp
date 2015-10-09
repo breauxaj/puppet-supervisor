@@ -10,7 +10,7 @@ define supervisor::config (
   }
 
   augeas { "supervisord_conf/${key}":
-    lens    => 'IniFile.lns',
+    lens    => 'Yum.lns',
     incl    => $config,
     onlyif  => "get ${key} != '${value}'",
     changes => "set ${key} '${value}'",
