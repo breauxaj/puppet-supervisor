@@ -1,8 +1,6 @@
 class supervisor (
   $ensure = 'latest',
 ) {
-  include ::python
-
   $required = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
   }
