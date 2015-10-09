@@ -5,12 +5,13 @@ define supervisor::config (
 
   $key = $title
 
-  $context = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => '/files/etc/supervisord.conf',
+  $config = $::operatingsystem ? {
+    /(?i-mx:centos|fedora|redhat|scientific)/ => '/etc/supervisord.conf',
   }
 
   augeas { "supervisord_conf/${key}":
-    context => $context,
+    lens    => 'Puppet.lns',
+    incl    => $config,
     onlyif  => "get ${key} != '${value}'",
     changes => "set ${key} '${value}'",
   }
