@@ -21,12 +21,11 @@ class supervisor (
     mode   => '0755'
   }
 
-  file { "${config}":
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[$required],
+  exec { 'echo_supervisord_conf':
+    path    => '/bin:/usr/bin',
+    command => "/usr/bin/echo_supervisord_conf >> ${config}",
+    creates => "${config}",
+    onlyif  => "test ! -f ${config}",
   }
 
 }
