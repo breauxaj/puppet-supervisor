@@ -2,7 +2,7 @@ class supervisor (
   $ensure = 'latest',
 ) {
   $required = $::operatingsystem ? {
-    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor' ],
+    /(?i-mx:centos|fedora|redhat|scientific)/ => [ 'supervisor', 'distribute' ],
   }
 
   $config = $::operatingsystem ? {
