@@ -55,9 +55,8 @@ define supervisor::service (
             owner   => 'root',
             group   => 'root',
             target  => '/lib/systemd/system/supervisord.service'
-          }
-
-          systemctl::reload { 'supervisord': }
+          } ~>
+          Exec['systemctl-daemon-reload']
         }
       }
     }
